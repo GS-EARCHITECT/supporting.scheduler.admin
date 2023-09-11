@@ -12,10 +12,10 @@
 	</parent>
 
 	<groupId>myABC</groupId>
-	<artifactId>supporting.scheduler</artifactId>
+	<artifactId>supporting.scheduler.admin</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>supporting.scheduler</name>
+	<name>supporting.scheduler.admin</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -108,6 +108,6 @@
 			</plugin>
 		</plugins>
 
-		<finalName>supporting.scheduler</finalName>
+		<finalName>supporting.scheduler.admin</finalName>
 	</build>
 </project>

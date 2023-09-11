@@ -56,7 +56,8 @@ public class SchedulerMasterService implements I_SchedulerMasterService {
 			ArrayList<SchedulerDetailDTO> schedulerDetailDTOs2 = null;
 			Float cntRecs = (float) 0; 
 
-			for (int ctr = 0; ctr < schedulerMasters.size(); ctr++) {
+			for (int ctr = 0; ctr < schedulerMasters.size(); ctr++) 
+			{
 				schedulerMaster = schedulerMasters.get(ctr);				
 				ruleMaster = ruleMasterRepo.findById(schedulerMasters.get(ctr).getRuleSeqNo());
 
@@ -119,7 +120,8 @@ public class SchedulerMasterService implements I_SchedulerMasterService {
 		return "";
 	}
 
-	public SchedulerMasterDTO newSchedulerMaster(SchedulerMasterDTO lMaster) {
+	public SchedulerMasterDTO newSchedulerMaster(SchedulerMasterDTO lMaster) 
+	{
 		logger.info("creating schedule for");
 		logger.info("Comp :"+Long.toString(lMaster.getCompanySeqNo()));
 		logger.info("Rule :"+Long.toString(lMaster.getRuleSeqNo()));
