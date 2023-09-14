@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import scheduler_mgmt.model.dto.SchedulerDetailDTO;
-import scheduler_mgmt.model.dto.SchedulerMasterDTO;
+import scheduler_mgmt.model.dto.SchedulerDetail_DTO;
+import scheduler_mgmt.model.dto.SchedulerMaster_DTO;
 import scheduler_mgmt.services.I_SchedulerMasterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,41 +38,41 @@ public class SchedulerMasterController
 	}
 	
 	@PostMapping("/new")
-	public ResponseEntity<SchedulerMasterDTO> newschedule(@RequestBody SchedulerMasterDTO scheduleDTO) {		
-		SchedulerMasterDTO scheduleDTO2 = schedulerMasterServ.newSchedulerMaster(scheduleDTO);
+	public ResponseEntity<SchedulerMaster_DTO> newschedule(@RequestBody SchedulerMaster_DTO scheduleDTO) {		
+		SchedulerMaster_DTO scheduleDTO2 = schedulerMasterServ.newSchedulerMaster(scheduleDTO);
 		HttpHeaders httpHeaders = new HttpHeaders();
 		return new ResponseEntity<>(scheduleDTO2, httpHeaders, HttpStatus.CREATED);
 	}
 	
 	@GetMapping(value = "/getAllSchedules", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<ArrayList<SchedulerMasterDTO>> getAllSchedulerMasters() {
-		ArrayList<SchedulerMasterDTO> scheduleDTOs = schedulerMasterServ.getAllSchedulerMasters();
+	public ResponseEntity<ArrayList<SchedulerMaster_DTO>> getAllSchedulerMasters() {
+		ArrayList<SchedulerMaster_DTO> scheduleDTOs = schedulerMasterServ.getAllSchedulerMasters();
 		return new ResponseEntity<>(scheduleDTOs, HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/getSelectSchedulesForCompanyTargetRule", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<ArrayList<SchedulerDetailDTO>> getSelectSchedulesForCompanyTargetRule(@PathVariable Long cSeqNo, @PathVariable Long rSeqNo, @PathVariable Long tSeqNo) 
+	public ResponseEntity<ArrayList<SchedulerDetail_DTO>> getSelectSchedulesForCompanyTargetRule(@PathVariable Long cSeqNo, @PathVariable Long rSeqNo, @PathVariable Long tSeqNo) 
 	{
-		ArrayList<SchedulerDetailDTO> scheduleDetailDTOs = schedulerMasterServ.getSelectSchedulesForCompanyTargetRule(cSeqNo, rSeqNo, tSeqNo);;
+		ArrayList<SchedulerDetail_DTO> scheduleDetailDTOs = schedulerMasterServ.getSelectSchedulesForCompanyTargetRule(cSeqNo, rSeqNo, tSeqNo);;
 		return new ResponseEntity<>(scheduleDetailDTOs, HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/getSelectSchedulesForRuleLine", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<ArrayList<SchedulerDetailDTO>> getSelectSchedulesForRuleLine(@RequestBody Long rLineSeqNo) 
+	public ResponseEntity<ArrayList<SchedulerDetail_DTO>> getSelectSchedulesForRuleLine(@RequestBody Long rLineSeqNo) 
 	{
-		ArrayList<SchedulerDetailDTO> scheduleDetailDTOs = schedulerMasterServ.getSelectSchedulesForRuleLine(rLineSeqNo);
+		ArrayList<SchedulerDetail_DTO> scheduleDetailDTOs = schedulerMasterServ.getSelectSchedulesForRuleLine(rLineSeqNo);
 		return new ResponseEntity<>(scheduleDetailDTOs, HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/getById/{scheduleSeqNo}", produces = { MediaType.APPLICATION_JSON_VALUE })	
-	public ResponseEntity<SchedulerMasterDTO> getSchedulerMasterById(@PathVariable Long scheduleSeqNo) 
+	public ResponseEntity<SchedulerMaster_DTO> getSchedulerMasterById(@PathVariable Long scheduleSeqNo) 
 	{
-		SchedulerMasterDTO scheduleAccNoDTOs = schedulerMasterServ.getSchedulerMasterById(scheduleSeqNo);		
+		SchedulerMaster_DTO scheduleAccNoDTOs = schedulerMasterServ.getSchedulerMasterById(scheduleSeqNo);		
 		return new ResponseEntity<>(scheduleAccNoDTOs, HttpStatus.OK);
 	}
 	
 	@PutMapping("/updschedule")
-	public void updateschedule(@RequestBody SchedulerMasterDTO scheduleDTO) 
+	public void updateschedule(@RequestBody SchedulerMaster_DTO scheduleDTO) 
 	{
 			schedulerMasterServ.updSchedulerMaster(scheduleDTO);	
 		return;

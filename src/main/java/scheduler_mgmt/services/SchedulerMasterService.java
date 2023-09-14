@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import scheduler_mgmt.model.dto.SchedulerDetailDTO;
-import scheduler_mgmt.model.dto.SchedulerMasterDTO;
+import scheduler_mgmt.model.dto.SchedulerDetail_DTO;
+import scheduler_mgmt.model.dto.SchedulerMaster_DTO;
 import scheduler_mgmt.model.master.SchedulerDetail;
 import scheduler_mgmt.model.master.SchedulerDetailPK;
 import scheduler_mgmt.model.master.SchedulerMaster;
@@ -46,14 +46,14 @@ public class SchedulerMasterService implements I_SchedulerMasterService {
 
 		if (schedulerMasters != null) {
 			SchedulerMaster schedulerMaster = null;
-			ArrayList<SchedulerDetailDTO> schedulerDetailDTOs = null;
+			ArrayList<SchedulerDetail_DTO> schedulerDetailDTOs = null;
 			Class<?> classRef = null;
 			Method method = null;
 			String methodName = null;
 			String className = null;
 			String packageName = null;
 			Optional<RuleMaster> ruleMaster = null;
-			ArrayList<SchedulerDetailDTO> schedulerDetailDTOs2 = null;
+			ArrayList<SchedulerDetail_DTO> schedulerDetailDTOs2 = null;
 			Float cntRecs = (float) 0; 
 
 			for (int ctr = 0; ctr < schedulerMasters.size(); ctr++) 
@@ -93,7 +93,7 @@ public class SchedulerMasterService implements I_SchedulerMasterService {
 						e.printStackTrace();
 					}
 					try {						
-						schedulerDetailDTOs2 = (ArrayList<SchedulerDetailDTO>) method.invoke(instance, schedulerMaster);						
+						schedulerDetailDTOs2 = (ArrayList<SchedulerDetail_DTO>) method.invoke(instance, schedulerMaster);						
 						
 						if (schedulerDetailDTOs2 != null) 
 						{
@@ -120,15 +120,14 @@ public class SchedulerMasterService implements I_SchedulerMasterService {
 		return "";
 	}
 
-	public SchedulerMasterDTO newSchedulerMaster(SchedulerMasterDTO lMaster) 
+	public SchedulerMaster_DTO newSchedulerMaster(SchedulerMaster_DTO lMaster) 
 	{
 		logger.info("creating schedule for");
 		logger.info("Comp :"+Long.toString(lMaster.getCompanySeqNo()));
-		logger.info("Rule :"+Long.toString(lMaster.getRuleSeqNo()));
-		logger.info("Targ :"+Long.toString(lMaster.getTargetSeqNo()));
+		logger.info("Rule :"+Long.toString(lMaster.getRuleSeqNo()));		
 		logger.info("From :"+lMaster.getFromDttm());
 		logger.info("To :"+lMaster.getToDttm());
-		SchedulerMasterDTO lMaster2 = null;
+		SchedulerMaster_DTO lMaster2 = null;
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 		LocalDateTime frdttm = LocalDateTime.parse(lMaster.getFromDttm(), formatter);
 		LocalDateTime todttm = LocalDateTime.parse(lMaster.getToDttm(), formatter);
@@ -140,44 +139,44 @@ public class SchedulerMasterService implements I_SchedulerMasterService {
 
 		if (countChk == 0) {			
 			SchedulerMaster SchedulerMaster = schedulerMasterRepo.save(this.setSchedulerMaster(lMaster));
-			lMaster2 = getSchedulerMasterDTO(SchedulerMaster);
+			lMaster2 = getSchedulerMaster_DTO(SchedulerMaster);
 			logger.info("created schedule");
 		}
 		return lMaster2;
 	}
 
-	public ArrayList<SchedulerMasterDTO> getAllSchedulerMasters() {
+	public ArrayList<SchedulerMaster_DTO> getAllSchedulerMasters() {
 		ArrayList<SchedulerMaster> resourceList = (ArrayList<SchedulerMaster>) schedulerMasterRepo.findAll();
-		ArrayList<SchedulerMasterDTO> lMasterss = new ArrayList<SchedulerMasterDTO>();
-		lMasterss = resourceList != null ? this.getSchedulerMasterDTOs(resourceList) : null;
+		ArrayList<SchedulerMaster_DTO> lMasterss = new ArrayList<SchedulerMaster_DTO>();
+		lMasterss = resourceList != null ? this.getSchedulerMaster_DTOs(resourceList) : null;
 		return lMasterss;
 	}
 
-	public SchedulerMasterDTO getSchedulerMasterById(Long scheduleSeqNo) {
+	public SchedulerMaster_DTO getSchedulerMasterById(Long scheduleSeqNo) {
 		Optional<SchedulerMaster> SchedulerMaster = schedulerMasterRepo.findById(scheduleSeqNo);
-		SchedulerMasterDTO lMasters = null;
+		SchedulerMaster_DTO lMasters = null;
 		if (SchedulerMaster.isPresent()) {
-			lMasters = SchedulerMaster != null ? this.getSchedulerMasterDTO(SchedulerMaster.get()) : null;
+			lMasters = SchedulerMaster != null ? this.getSchedulerMaster_DTO(SchedulerMaster.get()) : null;
 		}
 		return lMasters;
 	}
 	
 	
-	public ArrayList<SchedulerDetailDTO> getSelectSchedulesForCompanyTargetRule(Long cSeqNo, Long rSeqNo, Long tSeqNo) 
+	public ArrayList<SchedulerDetail_DTO> getSelectSchedulesForCompanyTargetRule(Long cSeqNo, Long rSeqNo, Long tSeqNo) 
 	{
 		ArrayList<SchedulerDetail> schedulerDetails = schedulerDetailRepo.getSelectSchedulesForCompanyTargetRule(cSeqNo, rSeqNo, tSeqNo);
-		ArrayList<SchedulerDetailDTO> lDetailDTOs = schedulerDetails != null ? this.getSchedulerDetailsDTOs(schedulerDetails) : null;		 		
+		ArrayList<SchedulerDetail_DTO> lDetailDTOs = schedulerDetails != null ? this.getSchedulerDetailsDTOs(schedulerDetails) : null;		 		
 		return lDetailDTOs;
 	}
 	
-	public ArrayList<SchedulerDetailDTO> getSelectSchedulesForRuleLine(Long rSeqNo) 
+	public ArrayList<SchedulerDetail_DTO> getSelectSchedulesForRuleLine(Long rSeqNo) 
 	{
 		ArrayList<SchedulerDetail> schedulerDetails = schedulerDetailRepo.getSelectSchedulesForRuleLine(rSeqNo);
-		ArrayList<SchedulerDetailDTO> lDetailDTOs = schedulerDetails != null ? this.getSchedulerDetailsDTOs(schedulerDetails) : null;		 		
+		ArrayList<SchedulerDetail_DTO> lDetailDTOs = schedulerDetails != null ? this.getSchedulerDetailsDTOs(schedulerDetails) : null;		 		
 		return lDetailDTOs;
 	}
 	
-	public void updSchedulerMaster(SchedulerMasterDTO lMaster) {
+	public void updSchedulerMaster(SchedulerMaster_DTO lMaster) {
 		SchedulerMaster scheduleMaster = this.setSchedulerMaster(lMaster);
 		if (schedulerMasterRepo.existsById(lMaster.getRuleLineSeqNo())) {
 			scheduleMaster.setRuleSeqNo(lMaster.getRuleSeqNo());
@@ -203,9 +202,9 @@ public class SchedulerMasterService implements I_SchedulerMasterService {
 		}
 	}
 	
-	private ArrayList<SchedulerDetailDTO> getSchedulerDetailsDTOs(ArrayList<SchedulerDetail> lDetails) {
-		SchedulerDetailDTO lDTO = null;
-		ArrayList<SchedulerDetailDTO> lDetailDTOs2 = new ArrayList<SchedulerDetailDTO>();
+	private ArrayList<SchedulerDetail_DTO> getSchedulerDetailsDTOs(ArrayList<SchedulerDetail> lDetails) {
+		SchedulerDetail_DTO lDTO = null;
+		ArrayList<SchedulerDetail_DTO> lDetailDTOs2 = new ArrayList<SchedulerDetail_DTO>();
 		for (int i = 0; i < lDetails.size(); i++) {
 			lDTO = getSchedulerDetailsDTO(lDetails.get(i));
 			lDetailDTOs2.add(lDTO);
@@ -213,9 +212,9 @@ public class SchedulerMasterService implements I_SchedulerMasterService {
 		return lDetailDTOs2;
 	}
 
-	private SchedulerDetailDTO getSchedulerDetailsDTO(SchedulerDetail lDetail)
+	private SchedulerDetail_DTO getSchedulerDetailsDTO(SchedulerDetail lDetail)
 	{
-		SchedulerDetailDTO lDTO = new SchedulerDetailDTO();
+		SchedulerDetail_DTO lDTO = new SchedulerDetail_DTO();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 		lDTO.setFrDttm(formatter.format(lDetail.getId().getFrDttm().toLocalDateTime()));
 		lDTO.setToDttm(formatter.format(lDetail.getId().getToDttm().toLocalDateTime()));
@@ -226,18 +225,18 @@ public class SchedulerMasterService implements I_SchedulerMasterService {
 		return lDTO;
 	}
 
-	private ArrayList<SchedulerMasterDTO> getSchedulerMasterDTOs(ArrayList<SchedulerMaster> lMasters) {
-		SchedulerMasterDTO lDTO = null;
-		ArrayList<SchedulerMasterDTO> lMasterDTOs = new ArrayList<SchedulerMasterDTO>();
+	private ArrayList<SchedulerMaster_DTO> getSchedulerMaster_DTOs(ArrayList<SchedulerMaster> lMasters) {
+		SchedulerMaster_DTO lDTO = null;
+		ArrayList<SchedulerMaster_DTO> lMasterDTOs = new ArrayList<SchedulerMaster_DTO>();
 		for (int i = 0; i < lMasters.size(); i++) {
-			lDTO = getSchedulerMasterDTO(lMasters.get(i));
+			lDTO = getSchedulerMaster_DTO(lMasters.get(i));
 			lMasterDTOs.add(lDTO);
 		}
 		return lMasterDTOs;
 	}
 
-	private SchedulerMasterDTO getSchedulerMasterDTO(SchedulerMaster lMaster) {
-		SchedulerMasterDTO lDTO = new SchedulerMasterDTO();
+	private SchedulerMaster_DTO getSchedulerMaster_DTO(SchedulerMaster lMaster) {
+		SchedulerMaster_DTO lDTO = new SchedulerMaster_DTO();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 		lDTO.setFromDttm(formatter.format(lMaster.getFrDttm().toLocalDateTime()));
 		lDTO.setToDttm(formatter.format(lMaster.getToDttm().toLocalDateTime()));
@@ -253,7 +252,7 @@ public class SchedulerMasterService implements I_SchedulerMasterService {
 		return lDTO;
 	}
 
-	private SchedulerMaster setSchedulerMaster(SchedulerMasterDTO lDTO) {
+	private SchedulerMaster setSchedulerMaster(SchedulerMaster_DTO lDTO) {
 		SchedulerMaster lMaster = new SchedulerMaster();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 		LocalDateTime frDateTime = LocalDateTime.parse(lDTO.getFromDttm(), formatter);
@@ -271,7 +270,7 @@ public class SchedulerMasterService implements I_SchedulerMasterService {
 		return lMaster;
 	}
 
-	private SchedulerDetail setSchedulerDetail(SchedulerDetailDTO sDTO) {
+	private SchedulerDetail setSchedulerDetail(SchedulerDetail_DTO sDTO) {
 		SchedulerDetail sDetail = new SchedulerDetail();
 		SchedulerDetailPK schedulerDetailPK = new SchedulerDetailPK();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");

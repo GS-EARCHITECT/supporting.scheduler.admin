@@ -8,16 +8,16 @@ import java.util.Collections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import common.DateUtil;
-import scheduler_mgmt.model.dto.SchedulerDetailDTO;
+import scheduler_mgmt.model.dto.SchedulerDetail_DTO;
 import scheduler_mgmt.model.master.SchedulerMaster;
 
 public class Scheduler_Algorithms_1 {
 	private static final Logger logger = LoggerFactory.getLogger(Scheduler_Algorithms_1.class);
 
-	public ArrayList<SchedulerDetailDTO> dow1(SchedulerMaster sm) 
+	public ArrayList<SchedulerDetail_DTO> dow1(SchedulerMaster sm) 
 	{
-		ArrayList<SchedulerDetailDTO> scheduleDetailDtos = new ArrayList<SchedulerDetailDTO>();
-		SchedulerDetailDTO scheduleDetailDto = new SchedulerDetailDTO();
+		ArrayList<SchedulerDetail_DTO> scheduleDetailDtos = new ArrayList<SchedulerDetail_DTO>();
+		SchedulerDetail_DTO scheduleDetailDto = new SchedulerDetail_DTO();
 		java.util.GregorianCalendar cal = (java.util.GregorianCalendar) Calendar.getInstance();
 		DateTimeFormatter dtOnly = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		String frTime = null;
@@ -63,7 +63,7 @@ public class Scheduler_Algorithms_1 {
 				frTime = dt + " " + sm.getFrtm();
 				toTime = dt + " " + sm.getTotm();
 				currDate = DateUtil.addDays(currDate, 7, 0, 0, 0);
-				scheduleDetailDto = new SchedulerDetailDTO();
+				scheduleDetailDto = new SchedulerDetail_DTO();
 				scheduleDetailDto.setFrDttm(frTime);
 				scheduleDetailDto.setToDttm(toTime);
 				scheduleDetailDto.setRuleLineSeqNo(sm.getRuleLineSeqNo());
@@ -74,9 +74,9 @@ public class Scheduler_Algorithms_1 {
 	}
 
 	// ON SPECIFIC DAYS OF MONTH
-	public ArrayList<SchedulerDetailDTO> dow5(SchedulerMaster sm) {
-		ArrayList<SchedulerDetailDTO> scheduleDetailDtos = new ArrayList<SchedulerDetailDTO>();
-		SchedulerDetailDTO scheduleDetailDto = new SchedulerDetailDTO();
+	public ArrayList<SchedulerDetail_DTO> dow5(SchedulerMaster sm) {
+		ArrayList<SchedulerDetail_DTO> scheduleDetailDtos = new ArrayList<SchedulerDetail_DTO>();
+		SchedulerDetail_DTO scheduleDetailDto = new SchedulerDetail_DTO();
 		java.util.GregorianCalendar cal = (java.util.GregorianCalendar) Calendar.getInstance();
 		DateTimeFormatter dtOnly = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		String frTime = null;
@@ -148,7 +148,7 @@ public class Scheduler_Algorithms_1 {
 			//		logger.info("date : "+dt);
 					frTime = dt + " " + sm.getFrtm();
 					toTime = dt + " " + sm.getTotm();
-					scheduleDetailDto = new SchedulerDetailDTO();
+					scheduleDetailDto = new SchedulerDetail_DTO();
 					scheduleDetailDto.setFrDttm(frTime);
 					scheduleDetailDto.setToDttm(toTime);
 					scheduleDetailDto.setRuleLineSeqNo(sm.getRuleLineSeqNo());
@@ -160,9 +160,9 @@ public class Scheduler_Algorithms_1 {
 	}
 
 	// DAYS PLUS
-	public ArrayList<SchedulerDetailDTO> dow2(SchedulerMaster sm) {
-		ArrayList<SchedulerDetailDTO> scheduleDetailDtos = new ArrayList<SchedulerDetailDTO>();
-		SchedulerDetailDTO scheduleDetailDto = new SchedulerDetailDTO();
+	public ArrayList<SchedulerDetail_DTO> dow2(SchedulerMaster sm) {
+		ArrayList<SchedulerDetail_DTO> scheduleDetailDtos = new ArrayList<SchedulerDetail_DTO>();
+		SchedulerDetail_DTO scheduleDetailDto = new SchedulerDetail_DTO();
 		DateTimeFormatter dtOnly = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		String frTime = null;
 		String toTime = null;
@@ -181,7 +181,7 @@ public class Scheduler_Algorithms_1 {
 				frTime = dt + " " + sm.getFrtm();
 				toTime = dt + " " + sm.getTotm();
 				currDate = DateUtil.addDays(currDate, daysPlus, 0, 0, 0);
-				scheduleDetailDto = new SchedulerDetailDTO();
+				scheduleDetailDto = new SchedulerDetail_DTO();
 				scheduleDetailDto.setFrDttm(frTime);
 				scheduleDetailDto.setToDttm(toTime);
 				scheduleDetailDto.setRuleLineSeqNo(sm.getRuleLineSeqNo());

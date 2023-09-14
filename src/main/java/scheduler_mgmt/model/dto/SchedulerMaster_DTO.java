@@ -3,7 +3,7 @@ package scheduler_mgmt.model.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class SchedulerMasterDTO implements Serializable 
+public class SchedulerMaster_DTO implements Serializable 
 {
 	/**
 	 * 
@@ -14,7 +14,7 @@ public class SchedulerMasterDTO implements Serializable
 	private BigDecimal jobTypeSeqNo;
 	private Long ruleSeqNo;
 	private Character scheduledFlag;
-	private Long targetSeqNo;
+	private String targetSeqNo;
 	private String scheduleData;
 	private String frtm;
 	private String totm;
@@ -61,11 +61,11 @@ public class SchedulerMasterDTO implements Serializable
 		this.scheduledFlag = scheduledFlag;
 	}
 
-	public Long getTargetSeqNo() {
+	public String getTargetSeqNo() {
 		return targetSeqNo;
 	}
 
-	public void setTargetSeqNo(Long targetSeqNo) {
+	public void setTargetSeqNo(String targetSeqNo) {
 		this.targetSeqNo = targetSeqNo;
 	}
 
@@ -109,8 +109,8 @@ public class SchedulerMasterDTO implements Serializable
 		this.toDttm = toDttm;
 	}
 
-	public SchedulerMasterDTO(long ruleLineSeqNo, Long companySeqNo, BigDecimal jobTypeSeqNo, Long ruleSeqNo,
-			Character scheduledFlag, Long targetSeqNo, String scheduleData, String frtm, String totm, String fromDttm,
+	public SchedulerMaster_DTO(long ruleLineSeqNo, Long companySeqNo, BigDecimal jobTypeSeqNo, Long ruleSeqNo,
+			Character scheduledFlag, String targetSeqNo, String scheduleData, String frtm, String totm, String fromDttm,
 			String toDttm) {
 		super();
 		this.ruleLineSeqNo = ruleLineSeqNo;
@@ -126,7 +126,7 @@ public class SchedulerMasterDTO implements Serializable
 		this.toDttm = toDttm;
 	}
 
-	public SchedulerMasterDTO() {
+	public SchedulerMaster_DTO() {
 		super();
 	}
 
